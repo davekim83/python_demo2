@@ -17,11 +17,13 @@ by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소�
 driver.get("https://www.jandi.com")
 driver.maximize_window()
 driver.implicitly_wait(10)  # 암묵적 대기 Global
-
+# 로그인 하기
+user_id = "dave.kim@tosslab.com"
+user_pw = "@Worud1209"
 by_xpath('//*[@id="jnd-header"]/nav/div[2]/div[2]/ul[2]/li/button').click()  # 로그인 버튼 클릭
 by_xpath('//*[@id="signin_form_container"]/form/div[1]/div[2]/input').clear()  # 이메일 입력창 내용 비우기
-by_xpath('//*[@id="signin_form_container"]/form/div[1]/div[2]/input').send_keys('dave.kim@tosslab.com')  # Email ID 입력
-by_xpath('//*[@id="signin_form_container"]/form/div[2]/div[2]/input').send_keys('@Worud1209')  # PW 입력
+by_xpath('//*[@id="signin_form_container"]/form/div[1]/div[2]/input').send_keys(user_id)  # Email ID 입력
+by_xpath('//*[@id="signin_form_container"]/form/div[2]/div[2]/input').send_keys(user_pw)  # PW 입력
 by_xpath('//*[@id="signin_form_container"]/form/button').click()  # 로그인 버튼 클릭
 time.sleep(3)
 by_xpath('//*[@id="wrap"]/article/div/section[2]/article/ul/li[3]/div/button[2]/span/span').click()  # Dave Test.Team 으로 진입 (li[n] 숫자를 각 계정에 맞게 설정해야 함
