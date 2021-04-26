@@ -44,16 +44,12 @@ else:
 time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[8]/div/div/div/div[2]/div[2]/button[2]').click()  # 대화 시작하기
 time.sleep(1)
-#  멤버 내보내기 1
-m_list = by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]')  # 참여멤버 리스트 변수 저장
-m_list.click()  # 참여 멤버 버튼 클릭
-m_list_2h = by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]')  # 2열 멤버 변수 저장
-m_list_2h.click()  # 2열 멤버 선택
-kickout = by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span')  # 내보내기 변수 저장
-kickout.click()  # 내보내기 클릭
+#  멤버 내보내기 1 &
+by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]').click()  # 참여 멤버 버튼 클릭
+by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]').click()  # 2열 멤버 선택
+by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 time.sleep(1)
-kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok')  # 내보내기 다이얼로그 확인 버튼 변수저장
-kickout_accept.click()
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 
 time.sleep(0.5)
 #  멤버 내보내기 2
@@ -61,63 +57,63 @@ by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]').click()  # 참여 �
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 time.sleep(0.5)
-kickout.click()  # 내보내기 확인
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(0.5)
 #  멤버 내보내기 3
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 time.sleep(0.5)
-kickout.click()  # 내보내기 확인
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(0.5)
 #  멤버 내보내기 4
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 time.sleep(0.5)
-kickout.click()  # 내보내기 확인
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(0.5)
 #  멤버 내보내기 5
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 time.sleep(0.5)
-kickout.click()  # 내보내기 확인
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(0.5)
 #  멤버 내보내기 6
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 time.sleep(0.5)
-kickout.click()  # 내보내기 확인
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(0.5)
 #  멤버 내보내기 7
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 time.sleep(0.5)
-kickout.click()  # 내보내기 확인
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(0.5)
 #  멤버 내보내기 8
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 time.sleep(0.5)
-kickout.click()  # 내보내기 확인
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(0.5)
 #  멤버 내보내기 9
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[2]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 time.sleep(0.5)
-kickout.click()  # 내보내기 확인
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(0.5)
 m_input.send_keys('모든 멤버를 쫒아냈습니다!! *^^* ' + Keys.ENTER)
 time.sleep(0.5)
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[4]/div[1]/i').click()  # 토픽 메뉴 호출
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[4]/div[2]/ul/li[3]').click()  # 채팅방 나가기
 time.sleep(0.5)
-kickout.click()  # 채팅방 나가기 확인(내보내기 다이얼로그 와 CSS 동일)
+kickout_accept = by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 채팅방 나가기 확인
 time.sleep(3)
 m_input.send_keys('그룹채팅 테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
 
