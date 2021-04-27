@@ -59,6 +59,7 @@ time.sleep(2)
 by_xpath('//*[@id="jnd-header"]/nav/div[2]/div[2]/ul[2]/li/button').click()  # 로그인 버튼 클릭
 by_xpath('//*[@id="signin_form_container"]/form/div[2]/div[2]/input').send_keys(user_pw)  # PW 입력
 by_xpath('//*[@id="signin_form_container"]/form/button').click()  # 로그인 버튼 클릭
+time.sleep(3)
 try:
     login_chk = by_xpath('//*[@id="wrap"]/article/div/section[1]/article/dl/dt/span').text
     id = "Dave.KIM"
