@@ -14,6 +14,7 @@ title = rm + rt + rn
 
 driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
+by_selector = driver.find_element_by_css_selector  # 자주쓰는 스크립트를 간소화 하기
 driver.get("https://www.jandi.com")
 driver.maximize_window()
 driver.implicitly_wait(10)  # 암묵적 대기 Global
@@ -53,19 +54,19 @@ time.sleep(0.5)
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/a').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
-by_xpath('//*[@id="jndApp"]/div[6]/div/div/div/div[2]/div/button[2]').click()  # 다이얼로그 확인 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(1)
 # 토픽 멤버 내보내기 2
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/a').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
-by_xpath('//*[@id="jndApp"]/div[6]/div/div/div/div[2]/div/button[2]').click()  # 다이얼로그 확인 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(1)
 # 토픽 멤버 내보내기 3
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[1]').click()  # 참여 멤버 버튼 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/a').click()  # 2열 멤버 선택
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
-by_xpath('//*[@id="jndApp"]/div[6]/div/div/div/div[2]/div/button[2]').click()  # 다이얼로그 확인 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(1)
 m_input.send_keys('모든 멤버를 쫒아냈습니다!! *^^* ' + Keys.ENTER)
 m_input.send_keys('테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
