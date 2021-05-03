@@ -224,7 +224,7 @@ m_input.send_keys('할 일이 삭제 되었습니다.' + Keys.ENTER)  # 할 일 
 
 
 # 토픽 삭제 하기
-by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]').click()  # 토픽 상단 더보기 메뉴 클릭
+by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]/i').click()  # 토픽 상단 더보기 메뉴 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[2]/ul/li[3]/span').click()  # 토픽 삭제하기 메뉴 클릭
 time.sleep(0.5)
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 토픽 삭제 확인 다이얼로그 확인 클릭

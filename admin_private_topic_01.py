@@ -9,9 +9,9 @@ from selenium.webdriver.common.keys import Keys
 
 
 # 랜덤 토픽 타이틀 생성
-rm = random.sample(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 1)
-rt = random.sample(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 5)
-rn = random.sample(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'], 2)
+rm = random.sample(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 2)
+rt = random.sample(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 6)
+rn = random.sample(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'], 3)
 random.shuffle(rt)
 random.shuffle(rn)
 title1 = rm + rt + rn
@@ -57,7 +57,8 @@ time.sleep(2)
 title_chk1 = by_xpath('//*[@id="cpanel"]/nav/div/div[2]/div[1]/p').text  # 수정한 타이틀 추출
 by_xpath('//*[@id="msgs_container"]/div[2]/div/div[3]/button').click()  # 멤버 초대하기 버튼 클릭
 time.sleep(1)
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[1]/ul/li[1]/div/input').send_keys('김대웅')  # 검색 할 멤버 입력
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.topic-invite-modal.allowOverflowY.mc-theme-wh._modalContainer.in > '
+            'div > div > div > div.modal-body > div.ng-isolate-scope > div > section.search-area > ul > li:nth-child(1) > div > input').send_keys('김대웅')  # 검색 할 멤버 입력
 time.sleep(1)
 
 # 아래는 Dave Test.Team 에서만 사용 가능한 스크립트
@@ -66,8 +67,10 @@ by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 세번째 '김대웅 테스트' 선택
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 네번째 '김대웅_5개 토픽' 선택(준회원 5개 토픽 초과 멤버)
 time.sleep(0.5)
-by_xpath('//*[@id="jndApp"]/div[8]/div/div/div/div[2]/div/button').click()  # 준회원은 최대 5개의 토픽에만 참여가 가능합니다. 알럿 팝업 확인 클릭
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[2]/button[2]').click()  # 초대하기 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button').click()  # 준회원 토픽 개수 초과 알럿 팝업 확인 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.topic-invite-modal.allowOverflowY.mc-theme-wh._modalContainer.in > '
+            'div > div > div > div.modal-body > div.btn-box.txt-r > button.btn.btn-blue._modalSubmit.ng-binding').click()  # 초대하기 클릭
 time.sleep(0.5)
 
 #  토픽 정보 수정
@@ -109,7 +112,7 @@ try:
 except:
     print('읽기 전용 설정이 되지 않았습니다.')
 time.sleep(1)
-m_input.send_keys('테스트가 완료 되었습니다.' + Keys.ENTER)
+m_input.send_keys('토픽 설정 변경 테스트가 완료 되었습니다.' + Keys.ENTER)
 time.sleep(1)
 
 # 토픽 멤버 내보내기 1
@@ -134,10 +137,11 @@ m_input.send_keys('모든 멤버를 쫒아냈습니다!! *^^* ' + Keys.ENTER)
 time.sleep(3)
 
 # 토픽 나가기
-by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]').click()  # 토픽 상단 더보기 메뉴 클릭
+by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]/i').click()  # 토픽 상단 더보기 메뉴 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[2]/ul/li[4]').click()  # 토픽 나가기(토픽관리자)
 time.sleep(1)
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 비공개 토픽 나가기 확인 다이얼로그
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button.btn.btn-danger').click()  # 비공개 토픽 나가기 확인 다이얼로그
 time.sleep(1)
 by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
             'div.btn-container > div > button.btn.btn-ok').click()  # 토픽관리자 권한 이양 확인
@@ -151,7 +155,7 @@ if admin_alone == admin_alone_chk:
     by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[4]').click()  # 멤버 초대하기 클릭
     by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 첫번째 멤버 선택
     by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[2]/button[2]').click()  # 초대하기 클릭
-    by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]').click()  # 토픽 상단 더보기 메뉴 클릭
+    by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]/i').click()  # 토픽 상단 더보기 메뉴 클릭
     by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[2]/ul/li[4]').click()  # 토픽 나가기(토픽관리자)
     time.sleep(1)
     by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 비공개 토픽 나가기 확인 다이얼로그
@@ -183,10 +187,11 @@ print('비공개 토픽을 새로 생성했습니다. 1')
 time.sleep(2)
 
 # 토픽 삭제 하기 1
-by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]').click()  # 토픽 상단 더보기 메뉴 클릭
+by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]/i').click()  # 토픽 상단 더보기 메뉴 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[2]/ul/li[3]/span').click()  # 토픽 삭제하기 메뉴 클릭
 time.sleep(0.5)
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 토픽 삭제 확인 다이얼로그 확인 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button.btn.btn-danger').click()  # 토픽 삭제 확인 다이얼로그 확인 클릭
 time.sleep(0.5)
 m_input.send_keys('혼자 있는 토픽의 삭제 테스트가 완료 되었습니다. 추가로 멤버가 있는 토픽의 삭제 테스트를 수행합니다.' + Keys.ENTER)
 print('혼자 있는 비공개 토픽을 정상적으로 삭제했습니다.')
@@ -216,7 +221,7 @@ by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[2]/button[2]').click()
 time.sleep(0.5)
 
 # 토픽 삭제 하기 1
-by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]').click()  # 토픽 상단 더보기 메뉴 클릭
+by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]/i').click()  # 토픽 상단 더보기 메뉴 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[2]/ul/li[3]/span').click()  # 토픽 삭제하기 메뉴 클릭
 time.sleep(0.5)
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 토픽 삭제 확인 다이얼로그 확인 클릭
