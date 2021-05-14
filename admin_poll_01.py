@@ -141,9 +141,8 @@ time.sleep(0.5)
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 토픽 삭제 확인 다이얼로그 확인 클릭
 time.sleep(0.5)
 m_input.send_keys('토픽 테스트가 완료 되었습니다.' + Keys.ENTER)
-
-
 m_input.send_keys('테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
+print('투표 테스트가 정상적으로 완료 되었습니다.')
 time.sleep(3)
 
 driver.quit()
