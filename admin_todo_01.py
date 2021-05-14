@@ -153,8 +153,8 @@ time.sleep(1.5)
 rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
 r = '100%'
 if rate == r:
-    by_xpath('//*[@id="detail_comment_input"]').send_keys('할 일이 정상적으로 완료 되었습니다.' + Keys.ENTER)
-    print('할 일이 정상적으로 완료 되었습니다.')
+    by_xpath('//*[@id="detail_comment_input"]').send_keys('할 일이 정상적으로 완료 처리 되었습니다.' + Keys.ENTER)
+    print('할 일이 정상적으로 완료 처리 되었습니다.')
 else:
     by_xpath('//*[@id="detail_comment_input"]').send_keys('진척율이 실제 진척율과 다릅니다.' + Keys.ENTER)
     print('FAIL!! 진척율을 확인 하세요!!')
