@@ -42,7 +42,7 @@ by_xpath('//*[@id="wrap"]/article/div/section[2]/article/ul/li[3]/div/button[2]/
 
 # 자주 사용하는 요소의 XPath 값 저장해두기
 m_input = by_xpath('//*[@id="message_input"]')  # 메시지 입력창을 "m_input" 변수에 저장
-m_input.send_keys('비공개 토픽 테스트를 시작합니다.' + Keys.ENTER)
+m_input.send_keys('공개 토픽 테스트를 시작합니다.' + Keys.ENTER)
 
 # 토픽 생성하기
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[2]/div/div[1]/div[1]/div[1]/div[2]/i').click()  # 토픽 추가 메뉴 [+] 더보기 클릭
@@ -133,7 +133,8 @@ by_xpath('//*[@id="cpanel"]/chat-panel/div/div/div/div').click()  # 게시글 �
 by_xpath('//*[@id="board-title"]').send_keys('Selenium 테스트 자동화')
 by_xpath('//*[@id="board_comment_input"]').send_keys('Selenium 으로 생성한 보드 게시물 입니다.' + Keys.SHIFT + Keys.ENTER)
 by_xpath('//*[@id="board_comment_input"]').send_keys('줄바꿈 테스트 라인 입니다.' + Keys.SHIFT + Keys.ENTER)
-by_xpath('//*[@id="board_comment_input"]').send_keys('@all' + Keys.ENTER)
+by_xpath('//*[@id="board_comment_input"]').send_keys('@all')
+by_xpath('//*[@id="board_comment_input"]').send_keys(Keys.ENTER)
 by_xpath('//*[@id="board_comment_input"]').send_keys('멘션 테스트 입니다.' + Keys.ENTER)
 by_xpath('//*[@id="create_new_channel"]').click()  # 생성하기 클릭
 
@@ -180,17 +181,31 @@ if admin_alone == admin_alone_chk:
     by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/form/div[1]/div[3]/div/div/div/div[2]/div[2]/div[2]/dl/dd/ul/div/li[1]').click()  # 첫번째 멤버 선택
     by_xpath('//*[@id="rename_channel"]').click()  # 완료 버튼 클릭
     time.sleep(5)
-    by_xpath('//*[@id="message_input"]').send_keys('다른 멤버를 토픽 관리자로 지정하고 해당 비공개 보드 토픽에서 나왔습니다.' + Keys.ENTER)
-    print('비공개 토픽에서 나왔습니다.')
+    by_xpath('//*[@id="message_input"]').send_keys('다른 멤버를 토픽 관리자로 지정하고 해당 공개 보드 토픽에서 나왔습니다.' + Keys.ENTER)
+    print('공개 토픽에서 나왔습니다.')
 else:
     by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/form/div[1]/div[3]/div/div/div/div').click()  # 토픽 관리자로 지정할 멤버 리스트 호출
     by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/form/div[1]/div[3]/div/div/div/div[2]/div[2]/div[2]/dl/dd/ul/div/li[1]').click()  # 첫번째 멤버 선택
     by_xpath('//*[@id="rename_channel"]').click()  # 완료 버튼 클릭
     time.sleep(5)
-    by_xpath('//*[@id="message_input"]').send_keys('비공개 토픽에서 나왔습니다.' + Keys.ENTER)
-    print('비공개 토픽에서 나왔습니다.')
+    by_xpath('//*[@id="message_input"]').send_keys('공개 토픽에서 나왔습니다.' + Keys.ENTER)
+    print('공개 토픽에서 나왔습니다.')
 
-# 비공개 토픽 새로 생성 1
+# 공개 토픽 재진입하기
+time.sleep(1)
+by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[1]/div[2]/div/button').click()  # Jump 메뉴 클릭
+by_xpath('//*[@id="quick-launcher-filter"]').send_keys(title2)  # 검색할 토픽명 입력
+by_xpath('//*[@id="quick-launcher-filter"]').send_keys(Keys.ENTER)  # Enter 키 사용하여 검색한 토픽으로 진입
+time.sleep(1)
+# 공개 토픽 재진입 성공 확인
+title_latest = by_xpath('//*[@id="cpanel"]/nav/div/div[2]/div[1]/p').text  # 수정한 타이틀 추출
+if title_chk2 == title_latest:  # 입력한 타이틀과 추출한 타이틀 비교
+    print('공개 토픽 재참가에 성공하였습니다.')
+else:
+    print('공개 토픽 재참가에 실패하였습니다.')
+time.sleep(1)
+
+# 공개 토픽 새로 생성 1
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[2]/div/div[1]/div[1]/div[1]/div[2]/i').click()  # 토픽 추가 메뉴 [+] 더보기 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[2]/div/div[1]/div[1]/div[1]/div[2]/div/ul/li[1]/span').click()  # 새로운 토픽 생성하기 클릭
 time.sleep(1)
@@ -199,8 +214,12 @@ time.sleep(0.5)
 by_selector('#jndApp > div.modal.fade.ng-isolate-scope.mc-theme-wh._modalContainer.in > div > div > div > form > '
             'div.modal-body.topic-create > div.form-horizontal.topic-view-type-container > div > div > div > dl:nth-child(2) > label').click()  # 보드 뷰 토픽 선택
 time.sleep(0.5)
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.mc-theme-wh._modalContainer.in > div > div > div > form > '
+            'div.modal-body.topic-create > div.form-horizontal.topic-visibility-container > div > div > '
+            'div.jnd-rc-box.horizontal-button.col-2 > dl:nth-child(2)').click()  # 공개 토픽으로 생성 선택
+time.sleep(0.5)
 by_xpath('//*[@id="create_new_channel"]').click()  # 생성하기 클릭
-print('비공개 보드 토픽을 새로 생성했습니다. 1')
+print('공개 보드 토픽을 새로 생성했습니다. 1')
 time.sleep(2)
 
 # 토픽 삭제 하기 1
@@ -211,9 +230,9 @@ by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-th
             'div.btn-container > div > button.btn.btn-danger').click()  # 토픽 삭제 확인 다이얼로그 확인 클릭
 time.sleep(0.5)
 by_xpath('//*[@id="message_input"]').send_keys('혼자 있는 토픽의 삭제 테스트가 완료 되었습니다. 추가로 멤버가 있는 토픽의 삭제 테스트를 수행합니다.' + Keys.ENTER)
-print('혼자 있는 비공개 보드 토픽을 정상적으로 삭제했습니다.')
+print('혼자 있는 공개 보드 토픽을 정상적으로 삭제했습니다.')
 
-# 비공개 토픽 새로 생성 2
+# 공개 토픽 새로 생성 2
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[2]/div/div[1]/div[1]/div[1]/div[2]/i').click()  # 토픽 추가 메뉴 [+] 더보기 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[2]/div/div[1]/div[1]/div[1]/div[2]/div/ul/li[1]/span').click()  # 새로운 토픽 생성하기 클릭
 time.sleep(1)
@@ -222,9 +241,13 @@ time.sleep(0.5)
 by_selector('#jndApp > div.modal.fade.ng-isolate-scope.mc-theme-wh._modalContainer.in > div > div > div > form > '
             'div.modal-body.topic-create > div.form-horizontal.topic-view-type-container > div > div > div > dl:nth-child(2) > label').click()  # 보드 뷰 토픽 선택
 time.sleep(0.5)
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.mc-theme-wh._modalContainer.in > div > div > div > form > '
+            'div.modal-body.topic-create > div.form-horizontal.topic-visibility-container > div > div > '
+            'div.jnd-rc-box.horizontal-button.col-2 > dl:nth-child(2)').click()  # 공개 토픽으로 생성 선택
+time.sleep(0.5)
 by_xpath('//*[@id="create_new_channel"]').click()  # 생성하기 클릭
 time.sleep(2)
-print('비공개 보드 토픽을 새로 생성했습니다. 2')
+print('공개 보드 토픽을 새로 생성했습니다. 2')
 # 토픽에 멤버 초대하기
 by_xpath('//*[@id="msgs_container"]/div[2]/div/div[3]/button').click()  # 멤버 초대하기 버튼 클릭
 time.sleep(1)
@@ -246,10 +269,10 @@ by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[2]/ul/li[3]/span').click
 time.sleep(0.5)
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 토픽 삭제 확인 다이얼로그 확인 클릭
 time.sleep(0.5)
-print('멤버가 있는 비공개 보드 토픽을 정상적으로 삭제했습니다.')
+print('멤버가 있는 공개 보드 토픽을 정상적으로 삭제했습니다.')
 by_xpath('//*[@id="message_input"]').send_keys('멤버가 있는 토픽의 삭제 테스트가 완료 되었습니다.' + Keys.ENTER)
 by_xpath('//*[@id="message_input"]').send_keys('테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
-print('비공개 보드 토픽 테스트가 완료 되었습니다.')
+print('공개 보드 토픽 테스트가 완료 되었습니다.')
 time.sleep(3)
 
 driver.quit()

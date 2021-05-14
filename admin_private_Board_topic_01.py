@@ -128,7 +128,8 @@ by_xpath('//*[@id="cpanel"]/chat-panel/div/div/div/div').click()  # 게시글 �
 by_xpath('//*[@id="board-title"]').send_keys('Selenium 테스트 자동화')
 by_xpath('//*[@id="board_comment_input"]').send_keys('Selenium 으로 생성한 보드 게시물 입니다.' + Keys.SHIFT + Keys.ENTER)
 by_xpath('//*[@id="board_comment_input"]').send_keys('줄바꿈 테스트 라인 입니다.' + Keys.SHIFT + Keys.ENTER)
-by_xpath('//*[@id="board_comment_input"]').send_keys('@all' + Keys.ENTER)
+by_xpath('//*[@id="board_comment_input"]').send_keys('@all')
+by_xpath('//*[@id="board_comment_input"]').send_keys(Keys.ENTER)
 by_xpath('//*[@id="board_comment_input"]').send_keys('멘션 테스트 입니다.' + Keys.ENTER)
 by_xpath('//*[@id="create_new_channel"]').click()  # 생성하기 클릭
 
