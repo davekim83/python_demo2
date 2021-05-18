@@ -1,20 +1,21 @@
 import time
 import random
+import string
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
 # 랜덤 토픽 타이틀 생성
-rm = random.sample(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 1)
-rt = random.sample(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 5)
-rn = random.sample(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'], 2)
-random.shuffle(rt)
-random.shuffle(rn)
-title = rm + rt + rn
-# info_text = 'Selenium 에서 자동으로 생성된 토픽 입니다.'  # 토픽 설명으로 쓸 텍스트 변수 저장  < 에러겁나 나네...당분간 안씀
+n = 10
+rand_str = ""
+for i in range(n):
+    rand_str += str(random.choice(string.ascii_uppercase + string.digits))
+title = rand_str
+print(title)
 
 driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
+by_selector = driver.find_element_by_css_selector
 driver.get("https://www.jandi.com")
 driver.maximize_window()
 driver.implicitly_wait(10)  # 암묵적 대기 Global
@@ -54,14 +55,20 @@ time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[1]/ul/li[1]/div/input').send_keys('김대웅')  # 검색 할 멤버 입력
 time.sleep(1)
 
-# 아래는 Dave Test.Team 에서만 사용 가능한 스크립트
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 첫번째 '김대웅' 선택
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 두번째 '김대웅 자동화 Dave' 선택
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 세번째 '김대웅 테스트' 선택
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 네번째 '김대웅_5개 토픽' 선택(준회원 5개 토픽 초과 멤버)
-time.sleep(0.5)
-by_xpath('//*[@id="jndApp"]/div[8]/div/div/div/div[2]/div/button').click()  # 준회원은 최대 5개의 토픽에만 참여가 가능합니다. 알럿 팝업 확인 클릭
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[2]/button[2]').click()  # 초대하기 클릭
+# 아래는 Dave Test.Team 에서만 사용 가능한 준회원 토픽수 5개 제한 확인 스크립트
+try:
+    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 첫번째 '김대웅' 선택
+    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 두번째 '김대웅 자동화 Dave' 선택
+    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 세번째 '김대웅 테스트' 선택
+    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 네번째 '김대웅_5개 토픽' 선택(준회원 5개 토픽 초과 멤버)
+    by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button').click()  # 준회원 토픽 개수 초과 알럿 팝업 확인 클릭
+    time.sleep(0.5)
+except:
+    time.sleep(0.5)
+    by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button').click()  # 준회원 토픽 개수 초과 알럿 팝업 확인 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.topic-invite-modal.allowOverflowY.mc-theme-wh._modalContainer.in > '
+            'div > div > div > div.modal-body > div.btn-box.txt-r > button.btn.btn-blue._modalSubmit.ng-binding').click()  # 초대하기 클릭
 time.sleep(0.5)
 
 # 메시지 전송 테스트
@@ -91,6 +98,7 @@ by_xpath('//*[@id="jndApp"]/div[7]/div/div/div[2]/div/div[3]/div/div/ul/li[2]/p/
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div[2]/div/div[3]/div/div/ul/li[3]/p/input').send_keys('Appium' + Keys.ENTER)  # 보기3 입력하고 보기 하나더 추가
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div[2]/div/div[3]/div/div/ul/li[4]/p/input').send_keys('Automation Anywhere')  # 보기4 입력
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div[3]/button[2]').click()  # 투표 만들기 클릭
+print('투표를 생성하였습니다.')
 time.sleep(1)
 
 # 투표 하기
@@ -98,6 +106,7 @@ by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[1]/div/div[2]/div[1]/ul
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/div/div[6]/div/div/div[2]/ul/li[1]/div').click()  # 투표 리스트 첫번째 투표 선택
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div[2]/div/div[1]/fieldset/div/div[1]/ul/li[1]').click()  # 첫번째 보기 선택
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div[2]/div/div[1]/fieldset/div/div[2]/button').click()  # 투표하기 버튼 클릭
+print('첫번째 보기에 투표 완료')
 
 # 재 투표 하기
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div[1]/div/ul/li[1]/a/i').click()  # 투표 상세 [...] 더보기 버튼 클릭
@@ -108,16 +117,19 @@ by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/di
 time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div[2]/div/div[1]/fieldset/div/div[2]/button').click()  # 재투표하기 버튼 클릭
 time.sleep(1)
+print('재투표하여 두번째 보기에 추가 투표 완료')
 
 # 투표에 댓글 달기
 r_input = by_xpath('//*[@id="detail_comment_input"]')  # 댓글 입력창을 "r_input" 변수에 저장
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div[1]/div/ul/li[1]/a/i').click()  # 투표 상세 [...] 더보기 버튼 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div[1]/div/ul/li[1]/div/ul/li[2]/a/span').click()  # 댓글 메뉴 클릭하기
 r_input.send_keys('Selenium에서 작성한 투표 댓글 입니다.' + Keys.ENTER)
+print('투표에 댓글을 작성하였습니다.')
 time.sleep(0.5)
 r_input.send_keys('@')
 r_input.send_keys(Keys.ENTER)
 r_input.send_keys('투표 멘션 댓글 테스트 메시지' + Keys.ENTER)
+print('투표에 멘션 댓글을 작성하였습니다.')
 time.sleep(1)
 
 # 투표 마감하기
@@ -125,21 +137,36 @@ by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/di
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div[1]/div/ul/li[1]/div/ul/li[3]').click()  # 투표 마감하기 메뉴 클릭
 time.sleep(0.5)
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[1]').click()  # 투표 마감 취소 하기
+print('투표 마감을 취소 하였습니다.')
 time.sleep(0.5)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div[1]/div/ul/li[1]').click()  # 투표 상세 [...] 더보기 버튼 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div/div[1]/div/ul/li[1]/div/ul/li[3]').click()  # 투표 마감하기 메뉴 클릭
 time.sleep(0.5)
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 투표 마감 하기
+print('투표를 마감 하였습니다.')
 time.sleep(5)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[1]/i[2]').click()  # 투표 리스트 닫기
 time.sleep(1)
 
 # 토픽 삭제 하기
-by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]').click()  # 토픽 상단 더보기 메뉴 클릭
+by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]/i').click()  # 토픽 상단 더보기 메뉴 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[2]/ul/li[3]/span').click()  # 토픽 삭제하기 메뉴 클릭
 time.sleep(0.5)
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 토픽 삭제 확인 다이얼로그 확인 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button.btn.btn-danger').click()  # 삭제 확인 다이얼로그 확인 버튼 클릭
 time.sleep(0.5)
+by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[1]/div[2]/div/button').click()  # Jump 메뉴 클릭
+by_xpath('//*[@id="quick-launcher-filter"]').send_keys(title)  # 검색할 토픽명 입력
+tp_del = by_selector('#jndApp > div.modal.ng-isolate-scope.quick-launcher-modal._modalContainer.in > div > div > div > '
+                     'div > div.quick-launcher-list > div.empty-matches > span').text  # 검색결과 없음 텍스트 Get
+print(tp_del)
+tp_del_chk = ("'" + title + "'" + "의 검색 결과가 없습니다.")
+if tp_del == tp_del_chk:
+    print('토픽이 정상적으로 삭제 되었습니다.')
+else:
+    print('FAIL!! 토픽이 삭제되지 않았습니다. 토픽 검색 또는 토픽 삭제 기능을 확인 하세요.')
+Keys.ESCAPE
+
 m_input.send_keys('토픽 테스트가 완료 되었습니다.' + Keys.ENTER)
 m_input.send_keys('테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
 print('투표 테스트가 정상적으로 완료 되었습니다.')

@@ -2,7 +2,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
+driver = webdriver.Chrome(executable_path="chromedriver")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
 by_selector = driver.find_element_by_css_selector
 
@@ -118,5 +118,5 @@ time.sleep(0.5)
 by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 채팅방 나가기 확인
 time.sleep(3)
 m_input.send_keys('그룹채팅 테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
-
+print('그룹채팅 테스트가 정상적으로 완료 되었습니다.')
 driver.quit()

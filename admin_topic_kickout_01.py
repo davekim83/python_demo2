@@ -1,16 +1,17 @@
 import time
 import random
+import string
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
 # 랜덤 토픽 타이틀 생성
-rm = random.sample(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 1)
-rt = random.sample(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 5)
-rn = random.sample(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'], 2)
-random.shuffle(rt)
-random.shuffle(rn)
-title = rm + rt + rn
+n = 10
+rand_str = ""
+for i in range(n):
+    rand_str += str(random.choice(string.ascii_uppercase + string.digits))
+title = rand_str
+print(title)
 
 driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기

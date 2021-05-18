@@ -1,20 +1,21 @@
 import time
 import random
+import string
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
 # 랜덤 토픽 타이틀 생성
-rm = random.sample(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'], 1)
-rt = random.sample(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'], 5)
-rn = random.sample(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'], 2)
-random.shuffle(rt)
-random.shuffle(rn)
-title = rm + rt + rn
-# info = 'Selenium 에서 자동으로 생성된 토픽 입니다.'  # 토픽 설명으로 쓸 텍스트 변수 저장  < 에러겁나 나네...당분간 안씀
+n = 10
+rand_str = ""
+for i in range(n):
+    rand_str += str(random.choice(string.ascii_uppercase + string.digits))
+title = rand_str
+print(title)
 
 driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
+by_selector = driver.find_element_by_css_selector
 driver.get("https://www.jandi.com")
 driver.maximize_window()
 driver.implicitly_wait(10)  # 암묵적 대기 Global
@@ -59,14 +60,21 @@ by_xpath('//*[@id="msgs_container"]/div[2]/div/div[3]/button').click()  # 멤버
 time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[1]/ul/li[1]/div/input').send_keys('김대웅')  # 검색 할 멤버 입력
 time.sleep(1)
-# 아래는 Dave Test.Team 에서만 사용 가능한 스크립트
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 첫번째 '김대웅' 선택
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 두번째 '김대웅 자동화 Dave' 선택
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 세번째 '김대웅 테스트' 선택
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 네번째 '김대웅_5개 토픽' 선택(준회원 5개 토픽 초과 멤버)
-time.sleep(0.5)
-by_xpath('//*[@id="jndApp"]/div[8]/div/div/div/div[2]/div/button').click()  # 준회원은 최대 5개의 토픽에만 참여가 가능합니다. 알럿 팝업 확인 클릭
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[2]/button[2]').click()  # 초대하기 클릭
+
+# 아래는 Dave Test.Team 에서만 사용 가능한 준회원 토픽수 5개 제한 확인 스크립트
+try:
+    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 첫번째 '김대웅' 선택
+    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 두번째 '김대웅 자동화 Dave' 선택
+    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 세번째 '김대웅 테스트' 선택
+    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 네번째 '김대웅_5개 토픽' 선택(준회원 5개 토픽 초과 멤버)
+    by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button').click()  # 준회원 토픽 개수 초과 알럿 팝업 확인 클릭
+    time.sleep(0.5)
+except:
+    time.sleep(0.5)
+    by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button').click()  # 준회원 토픽 개수 초과 알럿 팝업 확인 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.topic-invite-modal.allowOverflowY.mc-theme-wh._modalContainer.in > '
+            'div > div > div > div.modal-body > div.btn-box.txt-r > button.btn.btn-blue._modalSubmit.ng-binding').click()  # 초대하기 클릭
 time.sleep(0.5)
 
 # 메시지 전송 테스트
@@ -101,8 +109,9 @@ m_input.send_keys('할 일이 생성 되었습니다.' + Keys.ENTER)  # 할 일 
 by_xpath('//*[@id="tool-todo-list"]/div[1]/div[1]').click()  # 현재 보이는 할 일 리스트에서 첫번째 할 일 선택
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[2]/span').click()  # 진행 25% 클릭
-time.sleep(1.5)
+time.sleep(2)
 rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+print(rate)
 r = '25%'
 if rate == r:
     by_xpath('//*[@id="detail_comment_input"]').send_keys('진척율이 정상적으로 반영되었습니다.' + Keys.ENTER)
@@ -113,8 +122,9 @@ else:
 time.sleep(1)
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[3]/span').click()  # 진행 50% 클릭
-time.sleep(1.5)
+time.sleep(2)
 rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+print(rate)
 r = '50%'
 if rate == r:
     by_xpath('//*[@id="detail_comment_input"]').send_keys('진척율이 정상적으로 반영되었습니다.' + Keys.ENTER)
@@ -125,8 +135,9 @@ else:
 time.sleep(1)
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[4]/span').click()  # 진행 75% 클릭
-time.sleep(1.5)
+time.sleep(2)
 rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+print(rate)
 r = '75%'
 if rate == r:
     by_xpath('//*[@id="detail_comment_input"]').send_keys('진척율이 정상적으로 반영되었습니다.' + Keys.ENTER)
@@ -137,8 +148,9 @@ else:
 time.sleep(1)
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[1]/span').click()  # 대기 0% 클릭
-time.sleep(1.5)
+time.sleep(2)
 rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+print(rate)
 r = '0%'
 if rate == r:
     by_xpath('//*[@id="detail_comment_input"]').send_keys('진척율이 정상적으로 반영되었습니다.' + Keys.ENTER)
@@ -149,8 +161,9 @@ else:
 time.sleep(1)
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[5]/span').click()  # 완료 100% 클릭
-time.sleep(1.5)
+time.sleep(2)
 rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+print(rate)
 r = '100%'
 if rate == r:
     by_xpath('//*[@id="detail_comment_input"]').send_keys('할 일이 정상적으로 완료 처리 되었습니다.' + Keys.ENTER)
@@ -167,6 +180,16 @@ by_xpath('//*[@id="tool-todo-list"]/div[1]/div[1]').click()  # 현재 보이는 
 time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/a/i').click()  # 할 일 상세 [...] 더보기 버튼 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/div/ul/li[4]/a/span').click()  # 할 일 재개 메뉴 클릭
+time.sleep(2)
+rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+print(rate)
+r = '0%'
+if rate == r:
+    by_xpath('//*[@id="detail_comment_input"]').send_keys('진척율이 정상적으로 반영되었습니다.' + Keys.ENTER)
+    print('할 일이 재개되었습니다.')
+else:
+    by_xpath('//*[@id="detail_comment_input"]').send_keys('진척율이 실제 진척율과 다릅니다.' + Keys.ENTER)
+    print('FAIL!! 할 일 재개에 실패하였습니다. 진척율 또는 할 일 메뉴를 확인 하세요!!')
 time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/a/i').click()  # 할 일 상세 [...] 더보기 버튼 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/div/ul/li[3]/a/span').click()  # 할 일 수정 메뉴 클릭
@@ -175,10 +198,21 @@ by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]
 by_xpath('//*[@id="tool-todo-description-editor"]').clear()  # 할 일 설명 지우기
 by_xpath('//*[@id="tool-todo-description-editor"]').send_keys('Selenium 에서 설명을 수정 하였습니다.Selenium 에서 설명을 수정 하였습니다.Selenium 에서 설명을 수정 하였습니다.')  # 할 일 설명 수정
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[3]/button').click()  # 담당자 관리 버튼 클릭
-by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/label/div/p').click()  # 2열 담당자 선택
-by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[3]/label/div/p').click()  # 3열 담당자 선택
-by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[4]/label/div/p').click()  # 4열 담당자 선택
-by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[2]/div/div[3]/button[2]').click()  # 담당자 설정 버튼 클릭
+try:
+    by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/label/div/p').click()  # 2열 담당자 선택
+
+    by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[3]/label/div/p').click()  # 3열 담당자 선택
+    by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[4]/label/div/p').click()  # 4열 담당자 선택
+except:
+    by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                'div.file-detail-content.todo-detail-content.ng-scope > div.todo-detail-body._detailBody._scrollContainer > div > div.todo-detail.is-expande > '
+                'dl:nth-child(1) > dd > div.custom-select-box-wrap.jnd-member-select._selectbox.blur-effect.ng-isolate-scope > div > div.custom-member-buttons > button:nth-child(2)').click()  # 담당자 설정 버튼 클릭
+
+by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+            'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+            'div.file-detail-content.todo-detail-content.ng-scope > div.todo-detail-body._detailBody._scrollContainer > div > div.todo-detail.is-expande > '
+            'dl:nth-child(1) > dd > div.custom-select-box-wrap.jnd-member-select._selectbox.blur-effect.ng-isolate-scope > div > div.custom-member-buttons > button:nth-child(2)').click()  # 담당자 설정 버튼 클릭
 time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[3]/dd/div/div').click()  # 알림 설정 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[3]/dd/div/div[2]/div/div').click()  # 알림 드랍 박스 클릭
@@ -186,16 +220,49 @@ by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]
 time.sleep(0.5)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[5]/button[2]').click()  # 저장하기 버튼 클릭
 time.sleep(5)  # 할 일 생성완료 팝업 사라질때 까지 대기 > 이거 컨트롤 하는 방법이 있을까?
+by_xpath('//*[@id="tool-todo-list"]/div[1]/div[1]').click()  # 현재 보이는 할 일 리스트에서 첫번째 할 일 선택
+alarm = by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[2]/dl[2]/dd/p/span').text
+alram_chk = '정시'
+if alarm == alram_chk:
+    print('알람 설정이 정상적으로 저장되었습니다.')
+else:
+    print('FAIL!! 알람 설정이 저장되지 않았습니다.')
+    m_input.send_keys('FAIL!! 알람 수정이 되지 않았습니다. 할 일 수정 기능을 확인 하세요.' + Keys.ENTER)  # 할 일 생성 메시지 전송
 m_input.send_keys('할 일이 수정 되었습니다.' + Keys.ENTER)  # 할 일 생성 메시지 전송
+by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[1]/i[1]').click()  # 뒤로가기 버튼 클릭(할 일 리스트로 돌아가기)
+time.sleep(0.5)
 
 # 할 일 재개 후 담당자 일부 삭제
 by_xpath('//*[@id="tool-todo-list"]/div[1]/div[1]').click()  # 현재 보이는 할 일 리스트에서 첫번째 할 일 선택
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/a/i').click()  # 할 일 상세 [...] 더보기 버튼 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/div/ul/li[3]/a/span').click()  # 할 일 수정 메뉴 클릭
-by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[6]/button').click()  # 담당자 관리 버튼 클릭(수정 할 때는 div[6]버튼)
-by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[5]/div/div[2]/div[2]/dl/dd/ul/div/li[3]/label/div/p').click()  # 3열 담당자 선택(수정할 때는 dd/div[5])
-by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[5]/div/div[2]/div[2]/dl/dd/ul/div/li[4]/label/div/p').click()  # 4열 담당자 선택(수정할 때는 dd/div[5])
-by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[4]/div/div[1]/dl[1]/dd/div[5]/div/div[3]/button[2]').click()  # 담당자 설정 버튼 클릭
+by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+            'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > '
+            'div.tool-list.tool-view > div.file-detail-content.todo-detail-content.ng-scope > div.todo-detail-body._detailBody._scrollContainer > '
+            'div > div.todo-detail.is-expande > dl:nth-child(1) > dd > div.flex-row-box.flex-end.ng-scope > button').click()  # 담당자 관리 버튼 클릭(수정 할 때는 div[6]버튼)
+time.sleep(0.5)
+try:
+    by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                'div.file-detail-content.todo-detail-content.ng-scope > div.todo-detail-body._detailBody._scrollContainer > div > '
+                'div.todo-detail.is-expande > dl:nth-child(1) > dd > div.custom-select-box-wrap.jnd-member-select._selectbox.blur-effect.ng-isolate-scope > '
+                'div > div.custom-opt-view.opt-def._container.ng-scope > div.ng-isolate-scope > dl > dd > ul > div > li:nth-child(3)').click()  # 3열 담당자 선택
+    by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                'div.file-detail-content.todo-detail-content.ng-scope > div.todo-detail-body._detailBody._scrollContainer > div > '
+                'div.todo-detail.is-expande > dl:nth-child(1) > dd > div.custom-select-box-wrap.jnd-member-select._selectbox.blur-effect.ng-isolate-scope > '
+                'div > div.custom-opt-view.opt-def._container.ng-scope > div.ng-isolate-scope > dl > dd > ul > div > li:nth-child(4)').click()  # 4열 담당자 선택
+except:
+    by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                'div.file-detail-content.todo-detail-content.ng-scope > div.todo-detail-body._detailBody._scrollContainer > '
+                'div > div.todo-detail.is-expande > dl:nth-child(1) > dd > div.custom-select-box-wrap.jnd-member-select._selectbox.blur-effect.ng-isolate-scope > '
+                'div > div.custom-member-buttons > button:nth-child(2)').click()  # 담당자 설정 버튼 클릭
+by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+            'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+            'div.file-detail-content.todo-detail-content.ng-scope > div.todo-detail-body._detailBody._scrollContainer > '
+            'div > div.todo-detail.is-expande > dl:nth-child(1) > dd > div.custom-select-box-wrap.jnd-member-select._selectbox.blur-effect.ng-isolate-scope > '
+            'div > div.custom-member-buttons > button:nth-child(2)').click()  # 담당자 설정 버튼 클릭
 time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[5]/button[2]').click()  # 저장하기 버튼 클릭
 time.sleep(5)  # 할 일 생성완료 팝업 사라질때 까지 대기 > 이거 컨트롤 하는 방법이 있을까?
@@ -213,25 +280,41 @@ by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[5]
 time.sleep(5)  # 할 일 생성완료 팝업 사라질때 까지 대기 > 이거 컨트롤 하는 방법이 있을까?
 m_input.send_keys('할 일이 생성 되었습니다.' + Keys.ENTER)  # 할 일 생성 메시지 전송
 by_xpath('//*[@id="tool-todo-list"]/div[1]/div[1]').click()  # 현재 보이는 할 일 리스트에서 첫번째 할 일 선택
-time.sleep(1)
+time.sleep(2)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/a/i').click()  # 할 일 상세 [...] 더보기 버튼 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/div/ul/li[4]/a/span').click()  # 할 일 삭제 메뉴 클릭
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 삭제 확인 다이얼로그 확인 버튼 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button.btn.btn-danger').click()  # 삭제 확인 다이얼로그 확인 버튼 클릭
 time.sleep(5)
+todo_del = by_xpath('//*[@id="tool-todo-list"]/div[1]/div[2]/strong').text  # 할 일 리스트에서 첫번째 할 일의 타이틀 가져옴
+todo_del_chk = ('Selenium 에서 생성한 테스트 할 일 입니다.')  # 삭제했던 토픽과 리스트 첫번째 할 일의 타이틀 비교
+if todo_del == todo_del_chk:
+    print('FAIL!! 할 일이 삭제 되지 않았습니다. 할 일 리스트 또는 할 일 삭제메뉴를 확인하세요')  # 같으면 삭제 되지 않은것으로 판단
+else:
+    print('할 일이 정상적으로 삭제 되었습니다.')  # 다르면 삭제된 것으로 판단
+time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[2]/div/div/div[1]/i[1]').click()  # 할 일 리스트 닫기
 m_input.send_keys('할 일이 삭제 되었습니다.' + Keys.ENTER)  # 할 일 삭제 메시지 전송
-
-
 
 # 토픽 삭제 하기
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[1]/i').click()  # 토픽 상단 더보기 메뉴 클릭
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[2]/ul/li[3]/span').click()  # 토픽 삭제하기 메뉴 클릭
 time.sleep(0.5)
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div/button[2]').click()  # 토픽 삭제 확인 다이얼로그 확인 클릭
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button.btn.btn-danger').click()  # 삭제 확인 다이얼로그 확인 버튼 클릭
 time.sleep(0.5)
+by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[1]/div[2]/div/button').click()  # Jump 메뉴 클릭
+by_xpath('//*[@id="quick-launcher-filter"]').send_keys(title)  # 검색할 토픽명 입력
+tp_del = by_selector('#jndApp > div.modal.ng-isolate-scope.quick-launcher-modal._modalContainer.in > div > div > div > '
+                     'div > div.quick-launcher-list > div.empty-matches > span').text  # 검색결과 없음 텍스트 Get
+print(tp_del)
+tp_del_chk = ("'" + title + "'" + "의 검색 결과가 없습니다.")
+if tp_del == tp_del_chk:
+    print('토픽이 정상적으로 삭제 되었습니다.')
+else:
+    print('FAIL!! 토픽이 삭제되지 않았습니다. 토픽 검색 또는 토픽 삭제 기능을 확인 하세요.')
+Keys.ESCAPE
 m_input.send_keys('토픽 테스트가 완료 되었습니다.' + Keys.ENTER)
-
-
 m_input.send_keys('테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
 time.sleep(3)
 
