@@ -8,7 +8,7 @@ by_selector = driver.find_element_by_css_selector
 
 driver.get("https://www.jandi.com")
 driver.maximize_window()
-driver.implicitly_wait(10)  # 암묵적 대기 Global
+driver.implicitly_wait(5)  # 암묵적 대기 Global
 
 # 로그인 하기
 user_id = "dave.kim@tosslab.com"

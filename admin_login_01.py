@@ -6,7 +6,7 @@ driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
 driver.get("https://www.jandi.com")
 driver.maximize_window()
-driver.implicitly_wait(10)  # 암묵적 대기 Global
+driver.implicitly_wait(5)  # 암묵적 대기 Global
 
 # Default Setting
 # 멤버의 권한에 따라 Elements 의 속성이 다르기 때문에 멤버 권한에 따라 일부 스크립트를 수정해야 함

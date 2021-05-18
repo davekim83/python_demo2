@@ -18,7 +18,7 @@ by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소�
 by_selector = driver.find_element_by_css_selector  # 자주쓰는 스크립트를 간소화 하기
 driver.get("https://www.jandi.com")
 driver.maximize_window()
-driver.implicitly_wait(10)  # 암묵적 대기 Global
+driver.implicitly_wait(5)  # 암묵적 대기 Global
 # 로그인 하기
 user_id = "dave.kim@tosslab.com"
 user_pw = "@Worud1209"

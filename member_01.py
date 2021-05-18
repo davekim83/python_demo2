@@ -7,7 +7,7 @@ driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
 driver.get("https://www.jandi.com")
 driver.maximize_window()
-driver.implicitly_wait(3)  # 암묵적 대기 Global
+driver.implicitly_wait(5)  # 암묵적 대기 Global
 
 # Default Setting
 # 잔디 랜딩 접속 > 로그인
