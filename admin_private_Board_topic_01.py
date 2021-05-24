@@ -260,7 +260,7 @@ by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[5]/div[2]/ul/li[3]/span').click
 time.sleep(0.5)
 by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
             'div.btn-container > div > button.btn.btn-danger').click()  # 삭제 확인 다이얼로그 확인 버튼 클릭
-time.sleep(0.5)
+time.sleep(5)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[1]/div[2]/div/button').click()  # Jump 메뉴 클릭
 by_xpath('//*[@id="quick-launcher-filter"]').send_keys(title2)  # 검색할 토픽명 입력
 tp_del = by_selector('#jndApp > div.modal.ng-isolate-scope.quick-launcher-modal._modalContainer.in > div > div > div > '
