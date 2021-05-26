@@ -1,8 +1,11 @@
+# 로그인 테스트
+# Author : Dave
+
 import time
-from selenium import webdriver
+from selenium.webdriver import Chrome
 
+driver = Chrome()  # 사용하는 디바이스의 OS 별로 지정한 PATH의 chromedriver 를 실행 할 수 있도록 환경변수 선언
 
-driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
 driver.get("https://www.jandi.com")
 driver.maximize_window()

@@ -1,7 +1,10 @@
+# 팀 생성 & 삭제 테스트
+# Author : Dave
+
 import time
 import random
 import string
-from selenium import webdriver
+from selenium.webdriver import Chrome
 from selenium.webdriver.common.keys import Keys
 
 # 랜덤 팀 타이틀 생성
@@ -12,11 +15,11 @@ for i in range(n):
 title = rand_str
 print(title)
 
-driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
+driver = Chrome()  # 사용하는 디바이스의 OS 별로 지정한 PATH의 chromedriver 를 실행 할 수 있도록 환경변수 선언
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
 by_selector = driver.find_element_by_css_selector
 driver.get("https://www.jandi.com")
-driver.maximize_window()
+driver.maximize_window()  # 브라우저 사이즈 최대화
 driver.implicitly_wait(5)  # 암묵적 대기 Global
 
 # Default Setting
@@ -35,12 +38,14 @@ time.sleep(3)
 
 by_xpath('//*[@id="wrap"]/article/div/section[2]/button').click()  # + 팀 생성하기
 by_xpath('//*[@id="body"]/div[4]/div/div/div[2]/div/fieldset/div[1]/input').send_keys(title)  # 팀 이름 입력
+time.sleep(0.5)
 by_xpath('//*[@id="body"]/div[4]/div/div/div[2]/div/fieldset/div[2]/input').send_keys(title)  # 팀 도메인 입력
 time.sleep(1)
 by_xpath('//*[@id="body"]/div[4]/div/div/div[3]/button').click()  # 팀 생성 > 팀으로 이동하기
-time.sleep(3)
+time.sleep(5)
 
 team_title = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[1]/div[1]/div[1]/div[2]/div[1]/span').text
+
 print(team_title)
 if title == team_title:
     print('팀 생성이 완료 되었습니다.')
@@ -61,11 +66,29 @@ by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[1]/div/div[1]/ul/li/div
 time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[3]/div[2]/aside/ul[1]/li[3]').click()  # 팀 관리 메뉴 클릭
 by_xpath('//*[@id="mainContainerWrapper"]/team-manage/div/div[6]/a').click()  # 팀 삭제하기
-by_xpath('//*[@id="mainContainerWrapper"]/team-manage/div/div[6]/div[2]/form/div/input').send_keys(user_pw)
+del_noti = by_xpath('//*[@id="mainContainerWrapper"]/team-manage/div/div[6]/div[2]/div/span').text
+del_noti_chk = ("정말로 팀을 삭제하시겠습니까?" + "\n" + "모든 메시지와 파일들이 삭제되며 복구할 수 없습니다.")
+if del_noti == del_noti_chk:
+    print('팀 삭제 경고 문구가 정상적으로 표시 되었습니다.')
+else:
+    print('FAIL!! 팀 삭제 경고 문구가 표시 되지 않았습니다.')
 
+by_xpath('//*[@id="mainContainerWrapper"]/team-manage/div/div[6]/div[2]/form/div/input').send_keys(user_pw)  # pw 입력
+by_xpath('//*[@id="mainContainerWrapper"]/team-manage/div/div[6]/div[2]/form/div/button').click()  # 팀 삭제하기
+time.sleep(1)
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button.btn.btn-red').click()  # 팀 삭제 확인
+time.sleep(1)
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button').click()  # 삭제 완료 확인
+time.sleep(5)
+try:
+    main_chk = by_xpath('//*[@id="wrap"]/article/div/section[1]/header/h3/span').text
+    if main_chk == '프로필':
+        print('팀이 정상적으로 삭제 되어 잔디 메인으로 진입하였습니다.')
+    else:
+        print('FAIL!! 팀 삭제, 메인페이지 진입 또는 L10n을 확인하세요')
+except:
+    print('FAIL!! 팀이 정상적으로 삭제되지 않았습니다. 해당 기능을 확인하세요.')
 
-
-
-
-
-
+print('팀 생성 & 삭제 테스트가 완료 되었습니다.')
+driver.quit()

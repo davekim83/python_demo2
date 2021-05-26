@@ -1,8 +1,12 @@
+# 그룹채팅 내보내기 테스트
+# Author : Dave
+
 import time
-from selenium import webdriver
+from selenium.webdriver import Chrome
 from selenium.webdriver.common.keys import Keys
 
-driver = webdriver.Chrome(executable_path="chromedriver")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
+driver = Chrome()  # 사용하는 디바이스의 OS 별로 지정한 PATH의 chromedriver 를 실행 할 수 있도록 환경변수 선언
+
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
 by_selector = driver.find_element_by_css_selector
 

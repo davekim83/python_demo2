@@ -1,7 +1,10 @@
+# 할 일 테스트
+# Author : Dave
+
 import time
 import random
 import string
-from selenium import webdriver
+from selenium.webdriver import Chrome
 from selenium.webdriver.common.keys import Keys
 
 
@@ -13,7 +16,7 @@ for i in range(n):
 title = rand_str
 print(title)
 
-driver = webdriver.Chrome(executable_path="chromedriver.exe")  # 크롬드라이버 실행 경로 설정(상대경로) > 나중에 절대 경로로 바꿔야 함
+driver = Chrome()  # 사용하는 디바이스의 OS 별로 지정한 PATH의 chromedriver 를 실행 할 수 있도록 환경변수 선언
 by_xpath = driver.find_element_by_xpath  # 자주쓰는 스크립트를 간소화 하기
 by_selector = driver.find_element_by_css_selector
 driver.get("https://www.jandi.com")
@@ -42,10 +45,7 @@ by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[2]/div
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[2]/div/div[1]/div[1]/div[1]/div[2]/div/ul/li[1]/span').click()  # 새로운 토픽 생성하기 클릭
 time.sleep(1)
 by_xpath('//*[@id="topic-create-name"]').send_keys(title)  # 토픽 이름 입력
-time.sleep(2)
-# 토픽 설명 입력 스크립트는 에러율이 높아서 버림
-# by_xpath('//*[@id="jndApp"]/div[8]/div/div/div/form/div[1]/div[4]/div/div/textarea').click()
-# by_xpath('//*[@id="jndApp"]/div[8]/div/div/div/form/div[1]/div[4]/div/div/textarea').send_keys(info)  # 토픽 설명 입력(정회원인 경우 div[7] 로 변경)
+time.sleep(1)
 by_xpath('//*[@id="create_new_channel"]').click()  # 생성하기 클릭
 time.sleep(2)
 
