@@ -72,10 +72,9 @@ by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[2]/div/div[2]/div[2]/dl/
 by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[3]/div[2]/div/div[2]/div[2]/dl/dd/ul/div/li[2]/div/div[2]/span').click()  # 내보내기 클릭
 by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 내보내기 확인
 time.sleep(1)
-m_input.send_keys('모든 멤버를 쫒아냈습니다!! *^^* ' + Keys.ENTER)
 print('모든 멤버를 쫒아냈습니다!! *^^*')
-m_input.send_keys('테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
 print('멤버 내보내기 테스트가 완료 되었습니다.')
+print('테스트가 완료 되어 브라우저를 종료 합니다.')
 time.sleep(3)
 
 driver.quit()

@@ -110,7 +110,9 @@ by_xpath('//*[@id="tool-todo-list"]/div[1]/div[1]').click()  # 현재 보이는 
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[2]/span').click()  # 진행 25% 클릭
 time.sleep(2)
-rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+rate = by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                   'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                   'div.file-detail-content.todo-detail-content > div.file-detail-header.todo-detail-header > div > em > em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
 print(rate)
 r = '25%'
 if rate == r:
@@ -123,7 +125,9 @@ time.sleep(1)
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[3]/span').click()  # 진행 50% 클릭
 time.sleep(2)
-rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+rate = by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                   'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                   'div.file-detail-content.todo-detail-content > div.file-detail-header.todo-detail-header > div > em > em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
 print(rate)
 r = '50%'
 if rate == r:
@@ -136,7 +140,9 @@ time.sleep(1)
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[4]/span').click()  # 진행 75% 클릭
 time.sleep(2)
-rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+rate = by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                   'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                   'div.file-detail-content.todo-detail-content > div.file-detail-header.todo-detail-header > div > em > em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
 print(rate)
 r = '75%'
 if rate == r:
@@ -149,7 +155,9 @@ time.sleep(1)
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[1]/span').click()  # 대기 0% 클릭
 time.sleep(2)
-rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+rate = by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                   'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                   'div.file-detail-content.todo-detail-content > div.file-detail-header.todo-detail-header > div > em > em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
 print(rate)
 r = '0%'
 if rate == r:
@@ -162,7 +170,9 @@ time.sleep(1)
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em').click()  # 할 일 진척률 클릭
 by_xpath('//*[@id="tool-todo-detail-content-base"]/div/div[1]/dl[2]/dd/div/div/em/div/ul/li[5]/span').click()  # 완료 100% 클릭
 time.sleep(2)
-rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+rate = by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                   'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                   'div.file-detail-content.todo-detail-content > div.file-detail-header.todo-detail-header > div > em > em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
 print(rate)
 r = '100%'
 if rate == r:
@@ -181,7 +191,9 @@ time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/a/i').click()  # 할 일 상세 [...] 더보기 버튼 클릭
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/ul/li[1]/div/ul/li[4]/a/span').click()  # 할 일 재개 메뉴 클릭
 time.sleep(2)
-rate = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/em/em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
+rate = by_selector('#jndApp > div.content-wrapper.opac-in-fast._contentWrapper.ng-isolate-scope > div.body-wrapper.has-banner > '
+                   'div.rpanel.shadow.non-selectable._toolPanel > div.file.ng-scope.scroll_gray.opac_in.extend > div > div.tool-list.tool-view > '
+                   'div.file-detail-content.todo-detail-content > div.file-detail-header.todo-detail-header > div > em > em').text  # 할 일 상세의 진척율을 gettext 로 'rate' 저장
 print(rate)
 r = '0%'
 if rate == r:
@@ -314,8 +326,8 @@ if tp_del == tp_del_chk:
 else:
     print('FAIL!! 토픽이 삭제되지 않았습니다. 토픽 검색 또는 토픽 삭제 기능을 확인 하세요.')
 Keys.ESCAPE
-m_input.send_keys('토픽 테스트가 완료 되었습니다.' + Keys.ENTER)
-m_input.send_keys('테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
+print('할 일 테스트가 완료 되었습니다.')
+print('테스트가 완료 되어 브라우저를 종료 합니다.')
 time.sleep(3)
 
 driver.quit()

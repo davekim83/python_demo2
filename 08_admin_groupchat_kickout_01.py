@@ -121,6 +121,6 @@ by_xpath('//*[@id="cpanel"]/nav/div/div[3]/ul/li[4]/div[2]/ul/li[3]').click()  #
 time.sleep(0.5)
 by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button.btn.btn-ok').click()  # 채팅방 나가기 확인
 time.sleep(3)
-m_input.send_keys('그룹채팅 테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
 print('그룹채팅 테스트가 정상적으로 완료 되었습니다.')
+print('테스트가 완료 되어 브라우저를 종료 합니다.')
 driver.quit()

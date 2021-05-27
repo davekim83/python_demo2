@@ -71,5 +71,6 @@ except:
     print('이메일 기억하기 설정해제 정상 동작')
 time.sleep(3)
 print('로그인 테스트가 정상적으로 완료 되었습니다.')
+print('테스트가 완료 되어 브라우저를 종료 합니다.')
 
 driver.quit()

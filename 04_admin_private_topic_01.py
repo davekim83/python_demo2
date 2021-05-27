@@ -244,9 +244,8 @@ if tp_del == tp_del_chk:
 else:
     print('FAIL!! 토픽이 삭제되지 않았습니다. 토픽 검색 또는 토픽 삭제 기능을 확인 하세요.')
 Keys.ESCAPE
-m_input.send_keys('멤버가 있는 토픽의 삭제 테스트가 완료 되었습니다.' + Keys.ENTER)
-m_input.send_keys('테스트가 완료 되어 브라우저를 종료 합니다.' + Keys.ENTER)
 print('비공개 토픽테스트가 완료 되었습니다.')
+print('테스트가 완료 되어 브라우저를 종료 합니다.')
 time.sleep(3)
 
 driver.quit()

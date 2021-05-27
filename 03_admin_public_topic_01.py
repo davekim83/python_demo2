@@ -210,5 +210,6 @@ else:
 Keys.ESCAPE
 time.sleep(0.5)
 print('공개 토픽 테스트가 정상적으로 완료 되었습니다.')
+print('테스트가 완료 되어 브라우저를 종료 합니다.')
 
 driver.quit()
