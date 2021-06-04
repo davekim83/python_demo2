@@ -40,5 +40,17 @@ by_xpath('//*[@id="wrap"]/article/div/section[2]/article/ul/li[3]/div/button[2]/
 m_input = by_xpath('//*[@id="message_input"]')  # 메시지 입력창을 "m_input" 변수에 저장
 print('할 일 테스트를 시작합니다.')
 time.sleep(1)
-by_xpath('//*[@id="topic-21359720"]/div/div/div/h5/span)').click()  #
+
+# 보드 뷰 토픽으로 점프
+by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[1]/div[2]/div/button').click()  # Jump 메뉴 클릭
+by_xpath('//*[@id="quick-launcher-filter"]').send_keys('보드뷰입니다')  # 검색할 토픽명 입력
+by_xpath('//*[@id="quick-launcher-filter"]').send_keys(Keys.ENTER)  # Enter 키 사용하여 검색한 토픽으로 진입
+time.sleep(1)
+by_xpath('//*[@id="cpanel"]/chat-panel/div/div/div/div[2]/div[3]/div[1]').click()  # [+] 업로드 버튼 클릭
+time.sleep(1)
+by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[1]/div/div[2]/div[1]/ul/li[2]/a/i').click()  # 할 일 클릭(툴 메뉴)
+by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/section[1]/button').click()  # 할 일 생성 클릭
+by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div[3]/div/dl[1]/dd/div[1]/div').text
+
+
 
