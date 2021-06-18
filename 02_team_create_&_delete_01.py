@@ -37,11 +37,14 @@ by_xpath('//*[@id="signin_form_container"]/form/button').click()  # 로그인 �
 time.sleep(3)
 
 by_xpath('//*[@id="wrap"]/article/div/section[2]/button').click()  # + 팀 생성하기
-by_xpath('//*[@id="body"]/div[4]/div/div/div[2]/div/fieldset/div[1]/input').send_keys(title)  # 팀 이름 입력
+by_selector('#body > div.modal.ng-isolate-scope.full-screen-modal.create-team-modal.in > div > div > '
+            'div.full-screen-body.ng-scope > div > fieldset > div.jnd-input-box.input-name > input').send_keys(title)  # 팀 이름 입력
 time.sleep(0.5)
-by_xpath('//*[@id="body"]/div[4]/div/div/div[2]/div/fieldset/div[2]/input').send_keys(title)  # 팀 도메인 입력
+by_selector('#body > div.modal.ng-isolate-scope.full-screen-modal.create-team-modal.in > div > div > '
+            'div.full-screen-body.ng-scope > div > fieldset > div.jnd-input-box.input-team-name > input').send_keys(title)  # 팀 도메인 입력
 time.sleep(1)
-by_xpath('//*[@id="body"]/div[4]/div/div/div[3]/button').click()  # 팀 생성 > 팀으로 이동하기
+by_selector('#body > div.modal.ng-isolate-scope.full-screen-modal.create-team-modal.in > div > div > '
+            'div.full-screen-actions.btn-container.ng-scope > button').click()  # 팀 생성 > 팀으로 이동하기
 time.sleep(5)
 
 team_title = by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[1]/div[1]/div[1]/div[2]/div[1]/span').text
@@ -79,7 +82,8 @@ time.sleep(1)
 by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
             'div.btn-container > div > button.btn.btn-red').click()  # 팀 삭제 확인
 time.sleep(1)
-by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button').click()  # 삭제 완료 확인
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > '
+            'div.btn-container > div > button').click()  # 삭제 완료 확인
 time.sleep(5)
 try:
     main_chk = by_xpath('//*[@id="wrap"]/article/div/section[1]/header/h3/span').text
