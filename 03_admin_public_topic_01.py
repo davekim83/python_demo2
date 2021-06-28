@@ -39,9 +39,7 @@ by_xpath('//*[@id="signin_form_container"]/form/button').click()  # 로그인 �
 time.sleep(3)
 by_xpath('//*[@id="wrap"]/article/div/section[2]/article/ul/li[3]/div/button[2]/span/span').click()  # Dave Test.Team 으로 진입 (li[n] 숫자를 각 계정에 맞게 설정해야 함
 
-# 자주 사용하는 요소의 XPath 값 저장해두기
-m_input = by_xpath('//*[@id="message_input"]')  # 메시지 입력창을 "m_input" 변수에 저장
-m_input.send_keys('공개 토픽 테스트를 시작합니다.' + Keys.ENTER)
+print('공개 토픽 테스트를 시작합니다.')
 
 # 토픽 생성하기
 by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[2]/div/div[1]/div[1]/div[1]/div[2]/i').click()  # 토픽 추가 메뉴 [+] 더보기 클릭
@@ -120,6 +118,8 @@ try:
 except:
     print('읽기 전용 설정이 되지 않았습니다.')
 time.sleep(1)
+# 자주 사용하는 요소의 XPath 값 저장해두기
+m_input = by_xpath('//*[@id="message_input"]')  # 메시지 입력창을 "m_input" 변수에 저장
 m_input.send_keys('토픽 설정 변경 테스트가 완료 되었습니다.' + Keys.ENTER)
 time.sleep(1)
 
