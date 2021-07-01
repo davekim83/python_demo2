@@ -54,17 +54,26 @@ by_xpath('//*[@id="jndApp"]/div[1]/div[2]/div[1]/div/div[2]/div/aside/div[1]/div
 by_xpath('//*[@id="quick-launcher-filter"]').send_keys(title)  # 검색할 토픽명 입력
 by_xpath('//*[@id="quick-launcher-filter"]').send_keys(Keys.ENTER)  # Enter 키 사용하여 검색한 토픽으로 진입
 time.sleep(1)
-by_xpath('//*[@id="msgs_container"]/div[2]/div/div[3]/button').click()  # 멤버 초대하기 버튼 클릭
+by_xpath('//*[@id="msgs_container"]/div[2]/div/div/div[3]/button').click()  # 멤버 초대하기 버튼 클릭
 time.sleep(1)
-by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[1]/ul/li[1]/div/input').send_keys('김대웅')  # 검색 할 멤버 입력
+by_selector('#jndApp > div.modal.fade.ng-isolate-scope.topic-invite-modal.allowOverflowY.mc-theme-wh._modalContainer.in '
+            '> div > div > div > div.modal-body > div.ng-isolate-scope > div > section.search-area > ul > li:nth-child(1) > div > input').send_keys('김대웅')  # 검색 할 멤버 입력
 time.sleep(1)
 
 # 아래는 Dave Test.Team 에서만 사용 가능한 준회원 토픽수 5개 제한 확인 스크립트
 try:
-    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 첫번째 '김대웅' 선택
-    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 두번째 '김대웅 자동화 Dave' 선택
-    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 세번째 '김대웅 테스트' 선택
-    by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[2]/div[1]/div[1]/div/div[3]/div/div[1]').click()  # 네번째 '김대웅_5개 토픽' 선택(준회원 5개 토픽 초과 멤버)
+    by_selector('#jndApp > div.modal.fade.ng-isolate-scope.topic-invite-modal.allowOverflowY.mc-theme-wh._modalContainer.in > '
+                'div > div > div > div.modal-body > div.ng-isolate-scope > div > section.result-area > div.current-members > '
+                'div.mc-member-list > div > div.list-viewport > div > div.member-list-item.flex-row-box._memberItem._memberPresenceWrapper.select').click()  # 첫번째 '김대웅' 선택
+    by_selector('#jndApp > div.modal.fade.ng-isolate-scope.topic-invite-modal.allowOverflowY.mc-theme-wh._modalContainer.in > '
+                'div > div > div > div.modal-body > div.ng-isolate-scope > div > section.result-area > div.current-members > '
+                'div.mc-member-list > div > div.list-viewport > div > div.member-list-item.flex-row-box._memberItem._memberPresenceWrapper.select').click()  # 두번째 '김대웅 자동화 Dave' 선택
+    by_selector('#jndApp > div.modal.fade.ng-isolate-scope.topic-invite-modal.allowOverflowY.mc-theme-wh._modalContainer.in > '
+                'div > div > div > div.modal-body > div.ng-isolate-scope > div > section.result-area > div.current-members > '
+                'div.mc-member-list > div > div.list-viewport > div > div.member-list-item.flex-row-box._memberItem._memberPresenceWrapper.select').click()  # 세번째 '김대웅 테스트' 선택
+    by_selector('#jndApp > div.modal.fade.ng-isolate-scope.topic-invite-modal.allowOverflowY.mc-theme-wh._modalContainer.in > '
+                'div > div > div > div.modal-body > div.ng-isolate-scope > div > section.result-area > div.current-members > '
+                'div.mc-member-list > div > div.list-viewport > div > div.member-list-item.flex-row-box._memberItem._memberPresenceWrapper.select').click()  # 네번째 '김대웅_5개 토픽' 선택(준회원 5개 토픽 초과 멤버)
     time.sleep(0.5)
     by_selector('#jndApp > div.modal.fade.ng-isolate-scope.center-dialog-modal.mc-theme-wh.in > div > div > div > div.btn-container > div > button').click()  # 준회원 토픽 개수 초과 알럿 팝업 확인 클릭
     time.sleep(0.5)

@@ -46,7 +46,7 @@ by_xpath('//*[@id="topic-create-name"]').send_keys(title)  # 토픽 이름 입�
 time.sleep(1)
 by_xpath('//*[@id="create_new_channel"]').click()  # 생성하기 클릭
 time.sleep(2)
-by_xpath('//*[@id="msgs_container"]/div[2]/div/div[3]/button').click()  # 멤버 초대하기 버튼 클릭
+by_xpath('//*[@id="msgs_container"]/div[2]/div/div/div[3]/button').click()  # 멤버 초대하기 버튼 클릭
 time.sleep(1)
 by_xpath('//*[@id="jndApp"]/div[7]/div/div/div/div[2]/div[1]/div/section[1]/ul/li[1]/div/input').send_keys('김대웅')  # 검색 할 멤버 입력
 time.sleep(1)

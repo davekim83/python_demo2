@@ -54,8 +54,10 @@ if title == team_title:
     print('팀 생성이 완료 되었습니다.')
 else:
     print('팀 생성이 정상적으로 완료 되지 않았습니다. 팀 타이틀 또는 팀 생성 기능을 확인 하세요.')
+by_xpath
 
 esm = by_xpath('//*[@id="msgs_container"]/div[2]/div/div[2]/p').text
+
 print(esm)
 esm_chk = (title + "에 멤버를 초대하여" + "\n" + "대화를 시작해보세요")
 print(esm_chk)
